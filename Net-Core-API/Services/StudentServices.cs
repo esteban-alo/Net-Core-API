@@ -49,9 +49,9 @@ namespace Net_Core_API.Services
             }
         }
 
-        public Student GetStudent(Student student)
+        public Student GetStudent(int studentId)
         {
-            Student entity = context.Students.Find(student.Id);
+            Student entity = context.Students.FirstOrDefault(student => student.Id == studentId);
             return entity;
         }
     }
