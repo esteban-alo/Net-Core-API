@@ -1,0 +1,29 @@
+<div class="modal-form-container">
+	<h1 mat-dialog-title> {{ title }} </h1>
+	<div class="container-fluid">
+		<mat-dialog-content>
+			<form class="row" [formGroup]="createStudentForm" #addStudent="ngForm" (ngSubmit)="saveClick()">
+				<mat-form-field class="full-width col-6" floatPlaceholder="always">
+					<input matInput placeholder="First name" [ngModel]="student.firstName" formControlName="FirstName" required>
+				</mat-form-field>
+				<mat-form-field class="full-width col-6" floatPlaceholder="always">
+					<input matInput placeholder="Last name" [ngModel]="student.lastName" formControlName="LastName" required>
+				</mat-form-field>
+				<mat-form-field class="full-width col-6" floatPlaceholder="always">
+					<input matInput placeholder="Career" [ngModel]="student.career" formControlName="Career" required>
+				</mat-form-field>
+				<mat-form-field class="full-width col-6" floatPlaceholder="always">
+					<input matInput placeholder="User Name" [ngModel]="student.userName" formControlName="UserName">
+				</mat-form-field>
+				<mat-form-field class="full-width col-6" floatPlaceholder="always">
+					<input matInput placeholder="Edad" [ngModel]="student.age" formControlName="Age" required>
+				</mat-form-field>
+			</form>
+		</mat-dialog-content>
+	</div>
+	<mat-dialog-actions class="float-right">
+		<button mat-raised-button class="btn-space" (click)="cancelClick()">Cancelar</button>
+		<button mat-raised-button class="btn-space" (click)="saveClick()" color="primary"
+			[disabled]="!createStudentForm.valid">Guardar</button>
+	</mat-dialog-actions>
+</div>
