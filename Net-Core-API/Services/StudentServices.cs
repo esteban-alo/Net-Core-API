@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Net_Core_API.Context;
 
@@ -10,48 +12,63 @@ namespace Net_Core_API.Services
 
         private StudentContext context;
 
-        public StudentServices ()
+        public StudentServices()
         {
             context = new StudentContext();
         }
 
-        public void Add(Student student)
+        public async Task<Student> Add(Student student)
         {
-            var entity = context.Students.Add(student);
-            entity.State = EntityState.Added;
-            context.SaveChanges();
+            context.Students.Add(student);
+            _ = await context.SaveChangesAsync();
+            return student;
         }
 
-        public void Edit(Student student)
+        public async Task<Student> Edit(int studentId, Student student)
         {
-            var entity = context.Students.Update(student);
-            entity.State = EntityState.Modified;
-            context.SaveChanges();
+            if (studentId == student.Id)
+            {
+                context.Entry(student).State = EntityState.Modified;
+                try
+                {
+                    _ = await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex);
+                }
+            }
+            return student;
         }
 
-        public void Delete(Student student)
+        public async Task<Student> Delete(int studentId)
         {
-            var entity = context.Students.Remove(student);
-            entity.State = EntityState.Deleted;
-            context.SaveChanges();
+            var entity = await context.Students.FirstOrDefaultAsync(student => student.Id == studentId);
+            if (entity != null)
+            {
+                context.Remove(entity);
+                try
+                {
+                    _ = await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.Write(ex);
+                }
+            }
+            return entity;
         }
 
-        public List<Student> GetAllStudents()
+        public async Task<List<Student>> GetAllStudents()
         {
             List<Student> students = new List<Student>();
-            if(context.Students.Any())
-            {
-                students = context.Students.ToList();
-                return students;
-            } else
-            {
-                return students;
-            }
+            students = await context.Students.ToListAsync();
+            return students;
         }
 
-        public Student GetStudent(int studentId)
+        public async Task<Student> GetStudent(int studentId)
         {
-            Student entity = context.Students.FirstOrDefault(student => student.Id == studentId);
+            Student entity = await context.Students.FirstOrDefaultAsync(student => student.Id == studentId);
             return entity;
         }
     }
