@@ -24,6 +24,7 @@ export class ModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
   ) {
+    // Set data to Form View
     if (this.data != null) {
       this.title = 'Edit Student Information';
       this.student.id = this.data.id;
@@ -43,14 +44,11 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   saveClick() {
     const _student = new Student(this.createStudentForm.value);
-    if(_student.userName === "") {
-      _student.userName = _student.firstName + _student.lastName;
-    }
+    // Update student information
     if (this.data != null) {
       _student.id = this.student.id;
       this.service.updateStudent(_student).subscribe(
@@ -62,7 +60,9 @@ export class ModalComponent implements OnInit {
         }, error => {
           this.snackBarMessage('Can\'t update student information');
         });
-    } else {
+    } 
+    // Create student information
+    else {
       this.service.addStudent(_student).subscribe(
         response => {
           if (response) {
@@ -79,6 +79,7 @@ export class ModalComponent implements OnInit {
     this.dialog.close();
   }
 
+  // Set a message to Snackbar
   snackBarMessage(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,

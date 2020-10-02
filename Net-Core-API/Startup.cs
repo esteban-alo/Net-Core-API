@@ -33,13 +33,16 @@ namespace Net_Core_API
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   builder =>
                                   {
-                                      builder.WithOrigins("*");
+                                      builder.WithOrigins("http://localhost:4200/")
+                                      .AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
                                   });
             });
 
             // services.AddResponseCaching();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(); ;
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -87,7 +90,13 @@ namespace Net_Core_API
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200/")
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
 
             app.UseAuthorization();
 

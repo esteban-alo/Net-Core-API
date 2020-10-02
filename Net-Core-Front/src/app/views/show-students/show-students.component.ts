@@ -51,11 +51,21 @@ export class ShowStudentsComponent implements OnInit {
     });
   }
 
+  addStudent(): void {
+    this.dialog.open(ModalComponent, {
+      disableClose: true,
+    }).afterClosed().subscribe(result => {
+      this.changeDetectorRefs.detectChanges();
+      this.getStudents();
+    });
+  }
+
   editStudent(student: IStudent): void {
     this.dialog.open(ModalComponent, {
       data: student,
       disableClose: true,
     }).afterClosed().subscribe(result => {
+      this.changeDetectorRefs.detectChanges();
       this.getStudents();
     }, error => {
       console.error(error);
@@ -65,8 +75,9 @@ export class ShowStudentsComponent implements OnInit {
   deleteStudent(element): void {
     this.service.deleteStudent(element).subscribe(
       response => {
-        this.snackBarMessage('Student deleted');
         this.changeDetectorRefs.detectChanges();
+        this.getStudents();
+        this.snackBarMessage('Student deleted');
       }, error => {
         this.snackBarMessage('Can\'t delete student');
         console.error(error);

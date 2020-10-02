@@ -8,7 +8,7 @@ import { Student } from '../models/Student';
 
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class StudentService {
 
@@ -40,7 +40,7 @@ export class StudentService {
 	}
 
 	private putData(params: string, body: any) {
-		return this.http.put(this.serviceURL + this.servicePath + "/" + params , body)
+		return this.http.put(this.serviceURL + this.servicePath + "/" + params, body)
 			.pipe(
 				map(data => { return data })
 				, catchError(error => {
@@ -50,7 +50,7 @@ export class StudentService {
 	}
 
 	private deleteData(body: any) {
-		return this.http.delete(this.serviceURL + this.servicePath, body)
+		return this.http.delete(this.serviceURL + this.servicePath + '?id=' + body)
 			.pipe(
 				map(data => { return data })
 				, catchError(error => {
@@ -76,6 +76,6 @@ export class StudentService {
 	}
 
 	public deleteStudent(student: Student) {
-		return this.deleteData(student);
+		return this.deleteData(student.id.toString());
 	}
 }

@@ -11,19 +11,5 @@ import { StudentService } from './services/student.services';
 })
 
 export class AppComponent {
-  title = 'Net-Core-Front';
-
-  constructor(
-    private service: StudentService,
-    public dialog: MatDialog,
-    private changeDetectorRefs: ChangeDetectorRef
-  ) { }
-
-  addStudent(): void {
-    this.dialog.open(ModalComponent, {
-      disableClose: true,
-    }).afterClosed().subscribe(result => {
-      this.service.getStudents();
-    });
-  }
+  title = 'Net-Core-Front';  
 }
