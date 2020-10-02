@@ -51,18 +51,13 @@ namespace Net_Core_API
                     Version = "v1",
                     Title = "Student Administrator API",
                     Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    TermsOfService = new Uri("https://github.com/esteban-alo/Net-Core-API"),
                     Contact = new OpenApiContact
                     {
                         Name = "Esteban Rodriguez",
                         Email = string.Empty,
-                        Url = new Uri("https://github.com/esteban-alo/Net-Core-API"),
+                        Url = new Uri("https://github.com/esteban-alo/"),
                     },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://example.com/license"),
-                    }
                 });
 
                 // Set the comments path for the Swagger JSON and UI.
