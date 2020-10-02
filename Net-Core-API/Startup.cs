@@ -56,7 +56,7 @@ namespace Net_Core_API
                     {
                         Name = "Esteban Rodriguez",
                         Email = string.Empty,
-                        Url = new Uri("https://twitter.com/esteban-alo"),
+                        Url = new Uri("https://github.com/esteban-alo/Net-Core-API"),
                     },
                     License = new OpenApiLicense
                     {
