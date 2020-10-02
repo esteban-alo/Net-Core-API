@@ -41,7 +41,7 @@ export class ShowStudentsComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-
+  // Call getStudents service 
   getStudents(): void {
     this.pageLoad = true;
     this.service.getStudents().subscribe((response: IStudent[]) => {
@@ -51,6 +51,7 @@ export class ShowStudentsComponent implements OnInit {
     });
   }
 
+  // Open a custom Modal Dialog to create a new student
   addStudent(): void {
     this.dialog.open(ModalComponent, {
       disableClose: true,
@@ -60,6 +61,7 @@ export class ShowStudentsComponent implements OnInit {
     });
   }
 
+  // Open a custom Modal Dialog to edit the student information
   editStudent(student: IStudent): void {
     this.dialog.open(ModalComponent, {
       data: student,
@@ -72,6 +74,7 @@ export class ShowStudentsComponent implements OnInit {
     });
   }
 
+  // Delete a student
   deleteStudent(element): void {
     this.service.deleteStudent(element).subscribe(
       response => {
@@ -84,11 +87,13 @@ export class ShowStudentsComponent implements OnInit {
       });
   }
 
+  // Table filter
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Set a message to Snackbar
   snackBarMessage(message: string) {
     this.snackBar.open(message, null, {
       duration: 2000,

@@ -19,7 +19,8 @@ export class StudentService {
 		private http: HttpClient,
 		private router: Router
 	) { }
-
+	
+	// GET Action
 	private getData(params: string) {
 		return this.http.get(this.serviceURL + this.servicePath + (params != null ? "/" + params : ""))
 			.pipe(
@@ -32,6 +33,7 @@ export class StudentService {
 			);
 	}
 
+	// POST Action
 	private postData(body: any) {
 		return this.http.post(this.serviceURL + this.servicePath, body)
 			.pipe(
@@ -39,6 +41,7 @@ export class StudentService {
 			);
 	}
 
+	// PUT Action
 	private putData(params: string, body: any) {
 		return this.http.put(this.serviceURL + this.servicePath + "/" + params, body)
 			.pipe(
@@ -49,6 +52,7 @@ export class StudentService {
 			);
 	}
 
+	// DELETE Action
 	private deleteData(body: any) {
 		return this.http.delete(this.serviceURL + this.servicePath + '?id=' + body)
 			.pipe(
@@ -59,22 +63,27 @@ export class StudentService {
 			);
 	}
 
+	// Return the list of all students
 	public getStudents() {
 		return this.getData(null);
 	}
 
+	// Return a student by Id
 	public getStudentById(studentId: string) {
 		return this.getData(studentId);
 	}
 
+	// Creates a new student
 	public addStudent(student: Student) {
 		return this.postData(student);
 	}
 
+	// Update student information
 	public updateStudent(student: Student) {
 		return this.putData(student.id.toString(), student);
 	}
 
+	// Deletes a student
 	public deleteStudent(student: Student) {
 		return this.deleteData(student.id.toString());
 	}
